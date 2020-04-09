@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/lib/integration/react';
+import storageUtils from './utils/storageUtils'
+// import { PersistGate } from 'redux-persist/lib/integration/react';
 import Router from './router';
-import store, { persistor } from "./store";
+// import store, { persistor } from "./store";
+import store from "./store";
 import * as serviceWorker from './serviceWorker';
 
 // ReactDOM.render(
-//     <Provider store={store}>
+//     <Provider store={store}> 
 //         <PersistGate loading={null} persistor={persistor}>
 //             <Router />
 //         </PersistGate>
@@ -16,7 +18,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Provider store={store}>
-      <Router />
+    <Router userToken={storageUtils.getCookie('userToken')} />
   </Provider>,
   document.getElementById('root'));
 

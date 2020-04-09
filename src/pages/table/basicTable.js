@@ -5,10 +5,12 @@ import request from '../../utils/request';
 import { apis } from '../../utils/apis';
 
 class BasicTable extends PureComponent {
-  state = {
-    dataSource2: []
-  }
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataSource2: []
+    }
+  };
   params = {
     page: 1,
     pageSize: 10,
@@ -109,7 +111,7 @@ class BasicTable extends PureComponent {
       content: `您确定要删除这些数据吗？${ids.join(',')}`,
       onOk: () => {
         message.success('删除成功');
-        this.request();
+        this.getData();
       }
     })
   })

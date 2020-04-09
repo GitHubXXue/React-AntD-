@@ -2,7 +2,6 @@ import React from 'react';
 import Loadable from 'react-loadable';
 import { Spin } from 'antd';
 
-
 const style = {
   display: "flex",
   alignItems: "center",

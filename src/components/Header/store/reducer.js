@@ -2,7 +2,6 @@ import * as constants from "./constants"
 import { fromJS } from "immutable";
 
 const defaultState = fromJS({
-  userName: '吴冬雪',
   sysTime: '',
   dayPictureUrl: '',
   weather: '',

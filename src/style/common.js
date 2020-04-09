@@ -28,6 +28,15 @@ export const AppDiv = styled.div`
       padding: 20px;
     }
   }
+
+  // card 样式
+  .card-wrap{
+    margin-bottom: 10px;
+    button{ 
+        margin-right: 10px;
+    }
+  }
+
   // 表格框架布局封装
   .ant-table-contentWrap{
     background: #ffffff;

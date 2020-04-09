@@ -5,17 +5,16 @@ import echartTheme from '../echartTheme'
 // import echarts from 'echarts'
 // 引入 ECharts 主模块
 import echarts from 'echarts/lib/echarts'
-// 引入饼图和折线图
+// 引入柱状图
 import 'echarts/lib/chart/bar'
 // 引入提示框和标题组件
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
+
 export default class Bar extends React.Component {
-
   state = {}
-
   componentWillMount() { // 提前把这个主题注入进去  不能在下面render 执行完 在去注入  那就可能晚了
     // 怎么去实现编码
     // 1.注册主题
@@ -163,9 +162,9 @@ export default class Bar extends React.Component {
           <ReactEcharts option={this.getOption()} theme="Imooc" notMerge={true} lazyUpdate={true} style={{ height: 500 }} />
         </Card>
         <Card title="柱形图表之二" style={{ marginTop: 10 }}>
-        {
-          //ofo 摩拜 小蓝 骑行量 分别做了一个对比，每天大概是一个什么样的数据
-        }
+          {
+            //ofo 摩拜 小蓝 骑行量 分别做了一个对比，每天大概是一个什么样的数据
+          }
           <ReactEcharts option={this.getOption2()} theme="Imooc" notMerge={true} lazyUpdate={true} style={{ height: 500 }} />
         </Card>
       </div>

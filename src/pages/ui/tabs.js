@@ -6,12 +6,8 @@ import {
 const TabPane = Tabs.TabPane;
 
 class Buttons extends PureComponent {
-  newTabIndex = 0;
-  handleCallback = (key) => {
-    message.info("Hi,您选择了页签：" + key)
-  }
-
   componentWillMount() {
+    // 新增和关闭页签
     const panes = [
       {
         title: 'Tab 1',
@@ -34,38 +30,6 @@ class Buttons extends PureComponent {
       panes
     })
   }
-
-  onChange = (activeKey) => {
-    this.setState({
-      activeKey
-    })
-  }
-
-  onEdit = (targetKey, action) => {
-    this[action](targetKey);
-  }
-
-  add = () => {
-    const panes = this.state.panes;
-    const activeKey = `newTab${this.newTabIndex++}`;
-    panes.push({ title: activeKey, content: 'New Tab Pane', key: activeKey });
-    this.setState({ panes, activeKey });
-  }
-  remove = (targetKey) => {
-    let activeKey = this.state.activeKey;
-    let lastIndex;
-    this.state.panes.forEach((pane, i) => {
-      if (pane.key === targetKey) {
-        lastIndex = i - 1;
-      }
-    });
-    const panes = this.state.panes.filter(pane => pane.key !== targetKey);
-    if (lastIndex >= 0 && activeKey === targetKey) {
-      activeKey = panes[lastIndex].key;
-    }
-    this.setState({ panes, activeKey });
-  }
-
   render() {
     return (
       <Div>
@@ -83,7 +47,7 @@ class Buttons extends PureComponent {
             <TabPane tab={<span><Icon type="delete" />Tab 3</span>} key="3">React是一个非常受欢迎的MV*框架</TabPane>
           </Tabs>
         </Card>
-        <Card title="Tab带图的页签" className="card-wrap">
+        <Card title="Tab新增和关闭页签" className="card-wrap">
           <Tabs
             onChange={this.onChange}
             activeKey={this.state.activeKey}
@@ -95,7 +59,6 @@ class Buttons extends PureComponent {
                 return <TabPane
                   tab={panel.title}
                   key={panel.key}
-
                 />
               })
             }
@@ -103,6 +66,41 @@ class Buttons extends PureComponent {
         </Card>
       </Div>
     );
+  };
+  newTabIndex = 0;
+  // 切换页签
+  handleCallback = (key) => {
+    message.info("Hi,您选择了页签：" + key)
+  }
+  // 切换面板的回调
+  onChange = (activeKey) => {
+    this.setState({
+      activeKey
+    })
+  }
+  // 新增和删除页签的回调，在 type="editable-card" 时有效
+  onEdit = (targetKey, action) => {
+    this[action](targetKey);
+  }
+  add = () => {
+    const panes = this.state.panes;
+    const activeKey = `newTab${this.newTabIndex++}`;
+    panes.push({ title: activeKey, content: 'New Tab Pane', key: activeKey });
+    this.setState({ panes, activeKey });
+  }
+  remove = (targetKey) => { // targetKey 当前需要删除哪个页签的key 值 
+    let activeKey = this.state.activeKey; // activeKey 当前打开的是哪一个页签
+    let lastIndex;
+    this.state.panes.forEach((pane, i) => {
+      if (pane.key === targetKey) {
+        lastIndex = i - 1;
+      }
+    });
+    const panes = this.state.panes.filter(pane => pane.key !== targetKey);
+    if (lastIndex >= 0 && activeKey === targetKey) {
+      activeKey = panes[lastIndex].key;
+    }
+    this.setState({ panes, activeKey });
   }
 }
 

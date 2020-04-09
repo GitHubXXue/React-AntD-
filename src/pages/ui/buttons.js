@@ -12,7 +12,6 @@ class Buttons extends PureComponent {
       size: 'default'
     }
   };
-
   render() {
     return (
       <Div>
@@ -58,13 +57,11 @@ class Buttons extends PureComponent {
       </Div>
     );
   }
-
   handleCloseLoading = () => {
     this.setState({
       loading: false
     });
   }
-
   handleChange = (e) => {
     this.setState({
       size: e.target.value

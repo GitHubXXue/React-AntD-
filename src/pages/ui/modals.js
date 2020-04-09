@@ -5,31 +5,15 @@ import {
 } from './ui';
 
 class Buttons extends PureComponent {
-  state = {
-    showModal1: false,
-    showModal2: false,
-    showModal3: false,
-    showModal4: false
-  }
-
-  handleOpen = (type) => {
-    this.setState({
-      [type]: true
-    })
-  }
-
-  handleConfirm = (type) => {
-    Modal[type]({
-      title: '确认？',
-      content: '你确定你学会了React了吗？',
-      onOk() {
-        console.log('Ok')
-      },
-      onCancel() {
-        console.log('Cancel')
-      }
-    })
-  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModal1: false,
+      showModal2: false,
+      showModal3: false,
+      showModal4: false
+    }
+  };
   render() {
     return (
       <Div>
@@ -83,7 +67,7 @@ class Buttons extends PureComponent {
         </Modal>
         <Modal
           title="React"
-          wrapClassName="vertical-center-modal"
+          wrapClassName="vertical-center-modal" // 水平垂直居中
           visible={this.state.showModal4}
           onCancel={() => {
             this.setState({
@@ -95,6 +79,23 @@ class Buttons extends PureComponent {
         </Modal>
       </Div>
     );
+  }
+  handleOpen = (type) => {
+    this.setState({
+      [type]: true
+    })
+  }
+  handleConfirm = (type) => {
+    Modal[type]({
+      title: '确认？',
+      content: '你确定你学会了React了吗？',
+      onOk() {
+        console.log('Ok')
+      },
+      onCancel() {
+        console.log('Cancel')
+      }
+    })
   }
 }
 

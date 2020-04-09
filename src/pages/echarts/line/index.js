@@ -4,15 +4,15 @@ import ReactEcharts from 'echarts-for-react';
 import echartTheme from '../echartTheme'
 // import echarts from 'echarts'
 import echarts from 'echarts/lib/echarts'
-// 引入饼图和折线图
+// 引入折线图
 import 'echarts/lib/chart/line'
 // 引入提示框和标题组件
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
-export default class Line extends React.Component {
 
+export default class Line extends React.Component {
   state = {}
 
   componentWillMount() {
@@ -45,7 +45,7 @@ export default class Line extends React.Component {
       series: [ // 数据列表
         {
           name: '订单量',
-          type: 'line', // 定义折线图
+          type: 'line', // 定义折线图line
           data: [ // 饼图需要每一个data里面有一个name 和value 的，分别表实他的name 值  和value 值
             1000, // 这就不需要有这么多的东西了，他只是一个趋势点，我们只需要把每一个趋势的点画出来就可以了，每一个点会有一个值，
             2000, // 他不需要有name name  就是x 轴 横轴 对应的值，所以这里面 只需要填 我们的数据  ，这个点必须要和x 轴 的周一到周日 一一对应。
@@ -151,7 +151,7 @@ export default class Line extends React.Component {
       yAxis: {
         type: 'value'
       },
-      series: [ 
+      series: [
         {
           name: '订单量',
           type: 'line',

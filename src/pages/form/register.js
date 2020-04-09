@@ -8,7 +8,11 @@ const Option = Select.Option;
 const TextArea = Input.TextArea;
 
 class FormRegister extends PureComponent {
-  state = {}
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  };
 
   handleSubmit = () => {
     let userInfo = this.props.form.getFieldsValue();

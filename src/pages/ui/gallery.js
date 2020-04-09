@@ -2,16 +2,12 @@ import React, { PureComponent } from 'react';
 import { Card, Row, Col, Modal } from 'antd';
 
 class Gallery extends PureComponent {
-  state = {
-    visible: false
-  }
-
-  openGallery = (imgSrc) => {
-    this.setState({
-      visible: true,
-      currentImg: '/gallery/' + imgSrc
-    })
-  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false
+    }
+  };
   render() {
     const imgs = [
       ['1.png', '2.png', '3.png', '4.png', '5.png'],
@@ -24,7 +20,7 @@ class Gallery extends PureComponent {
       <Card
         key={item}
         style={{ marginBottom: 10 }}
-        cover={<img src={'/gallery/' + item} onClick={() => this.openGallery(item)} alt="" />}
+        cover={<img src={'/gallery/' + item} onClick={() => this.openGallery(item)} alt="" style={{ cursor: 'pointer' }} />}
       >
         <Card.Meta
           title="React Admin"
@@ -67,6 +63,12 @@ class Gallery extends PureComponent {
         </Modal>
       </div>
     );
+  }
+  openGallery = (imgSrc) => {
+    this.setState({
+      visible: true,
+      currentImg: '/gallery/' + imgSrc
+    })
   }
 }
 

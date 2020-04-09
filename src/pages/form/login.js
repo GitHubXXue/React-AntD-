@@ -3,15 +3,6 @@ import { Card, Form, Input, Button, message, Icon, Checkbox } from "antd";
 const FormItem = Form.Item;
 
 class FormLogin extends PureComponent {
-  handleSubmit = () => {
-    let userInfo = this.props.form.getFieldsValue();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        message.success(`${userInfo.userName} 恭喜你，您通过本次表单组件学习，当前密码为：${userInfo.userPwd}`)
-      }
-    })
-  }
-
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -34,7 +25,7 @@ class FormLogin extends PureComponent {
             <FormItem>
               {
                 getFieldDecorator('userName', {
-                  initialValue: '',
+                  initialValue: 'admin',
                   rules: [
                     {
                       required: true,
@@ -57,7 +48,7 @@ class FormLogin extends PureComponent {
             <FormItem>
               {
                 getFieldDecorator('userPwd', {
-                  initialValue: '',
+                  initialValue: 'admin',
                   rules: []
                 })(
                   <Input prefix={<Icon type="lock" />} type="password" placeholder="请输入密码" />
@@ -82,6 +73,15 @@ class FormLogin extends PureComponent {
         </Card>
       </div>
     );
+  };
+  // 登录按钮  水平表单
+  handleSubmit = () => {
+    let userInfo = this.props.form.getFieldsValue();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        message.success(`${userInfo.userName} 恭喜你，您通过本次表单组件学习，当前密码为：${userInfo.userPwd}`)
+      }
+    })
   }
 }
 

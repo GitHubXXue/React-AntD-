@@ -22,6 +22,7 @@ const service = axios.create({
 // request拦截器 interceptors拦截器
 service.interceptors.request.use(
   config => {
+    
     if (config.url.indexOf("/app/mock") > 0) {  //config.url 获取请求的地址
       config.headers = { "Content-Type": "application/json;charset=UTF-8" };
     }
@@ -46,7 +47,7 @@ service.interceptors.response.use(
   error => {
     console.log('TCL: error', error)
     const msg = error.Message !== undefined ? error.Message : ''
-    message.error(`网络连接失败 ${msg}`);
+    message.error(`网络连接失败 ${+ msg}`);
     return Promise.reject(error)
   }
 );

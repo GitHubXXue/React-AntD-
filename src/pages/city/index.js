@@ -1,16 +1,19 @@
 import React, { PureComponent } from 'react';
 import { Card, Button, Table, Form, Select, Modal, message } from 'antd';
 import Utils from '../../utils';
-import request from '../../utils/request';
+import axios from '../../axios';
 import { apis } from '../../utils/apis';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
 export default class City extends PureComponent {
-  state = {
-    list: [],
-    isShowOpenCity: false // 定义弹框默认隐藏
-  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      list: [],
+      isShowOpenCity: false // 定义弹框默认隐藏
+    }
+  };
   params = {
     page: 1,
     pageSize: 10,
@@ -18,21 +21,28 @@ export default class City extends PureComponent {
   componentDidMount() {
     this.requestList(); // 初始化调用一下
   }
-
   // 接收BaseForm 返回值
-  handleFilter = (params) => {
-    console.log(params,"11")
-    // this.params = params;
-    // this.requestList();
+  handleFilter = (values) => {
+    // console.log(values, "11")
+    this.params = {
+      'page': this.params.page,
+      'pageSize': this.params.pageSize,
+      'city_id': values.city_id,
+      'mode': values.mode,
+      'op_mode': values.op_mode,
+      'auth_status': values.auth_status
+    }
+    this.requestList();
   }
-  // {
-  //   page: this.params.page,
-  //   pageSize: this.params.pageSize
-  // }
   // 默认请求我们的接口数据
   requestList = () => {
     let _this = this;
-    request.post(apis.getOpenCity, this.params).then((res) => {
+    axios.ajax({
+      url: apis.getOpenCity,
+      method: 'post',
+      data: this.params,
+      isShowLoading: true
+    }).then((res) => {
       let data = res.data
       if (data.code === 200) {
         data.data.list.map((item, index) => {  // antd 规范里面要求每个组件最好都要有一个key 值，有了这个key 值 我们的页面呢就会少很多的警告
@@ -60,8 +70,11 @@ export default class City extends PureComponent {
   // 开通城市 弹框  提交按钮
   handleSubmit = () => {
     let cityInfo = this.cityForm.props.form.getFieldsValue(); // 通过对象去取form 里面的getFieldsValue 值
-    request.post(apis.cityOpenSubmit, {
-      cityInfo
+    axios.ajax({
+      url: apis.cityOpenSubmit,
+      method: 'post',
+      data: cityInfo,
+      isShowLoading: false
     }).then((res) => {
       let data = res.data
       if (data.code === 200) {
@@ -164,8 +177,9 @@ export default class City extends PureComponent {
   }
 }
 
+// 搜索查询按钮
 class FilterForm extends PureComponent {
-  // 搜索查询按钮
+  // 提交表单
   handleSearch = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -184,8 +198,9 @@ class FilterForm extends PureComponent {
           {
             getFieldDecorator('city_id')(
               <Select
-                style={{ width: 100 }}
+                style={{ width: 200 }}
                 placeholder="Select"
+                allowClear
               >
                 <Option value="全部">全部</Option>
                 <Option value="北京市">北京市</Option>
@@ -199,8 +214,9 @@ class FilterForm extends PureComponent {
           {
             getFieldDecorator('mode')(
               <Select
-                style={{ width: 120 }}
+                style={{ width: 200 }}
                 placeholder="Select"
+                allowClear
               >
                 <Option value="全部">全部</Option>
                 <Option value="指定停车点模式">指定停车点模式</Option>
@@ -213,8 +229,9 @@ class FilterForm extends PureComponent {
           {
             getFieldDecorator('op_mode')(
               <Select
-                style={{ width: 80 }}
+                style={{ width: 200 }}
                 placeholder="Select"
+                allowClear
               >
                 <Option value="全部">全部</Option>
                 <Option value="自营">自营</Option>
@@ -227,8 +244,9 @@ class FilterForm extends PureComponent {
           {
             getFieldDecorator('auth_status')(
               <Select
-                style={{ width: 100 }}
+                style={{ width: 200 }}
                 placeholder="Select"
+                allowClear
               >
                 <Option value="全部">全部</Option>
                 <Option value="已授权">已授权</Option>
@@ -238,7 +256,7 @@ class FilterForm extends PureComponent {
           }
         </FormItem>
         <FormItem>
-          <Button type="primary" style={{ margin: '0 20px' }} htmlType="submit">查询</Button>
+          <Button type="primary" style={{ marginRight: '20px' }} htmlType="submit">查询</Button>
           <Button onClick={this.handleReset}>重置</Button>
         </FormItem>
       </Form>
@@ -247,6 +265,7 @@ class FilterForm extends PureComponent {
 }
 FilterForm = Form.create({})(FilterForm);
 
+// 开通城市表单
 class OpenCityForm extends PureComponent { // 不要通过export default 去导入 ，一个js 里面只允许有一个默认的导入导出，导出以后才可以在路由里面去定义我们的文件。不要重复去写多个export default，这样会出问题
   render() {
     const formItemLayout = {
@@ -260,13 +279,13 @@ class OpenCityForm extends PureComponent { // 不要通过export default 去导�
     }
     const { getFieldDecorator } = this.props.form; // 辅助性帮助我们去做 双向数据绑定功能的   自动帮助我们去封装 我们就不需要考虑我们点击的是哪一项了
     return (
-      <Form layout="horizontal">
-        <FormItem label="选择城市" {...formItemLayout}>
+      <Form layout="horizontal" {...formItemLayout}>
+        <FormItem label="选择城市">
           {
             getFieldDecorator('city_id', {
               initialValue: '全部' // 初始化值
             })(
-              <Select style={{ width: 200 }}>
+              <Select style={{ width: 200 }} allowClear>
                 <Option value="">全部</Option>
                 <Option value="北京市">北京市</Option>
                 <Option value="天津市">天津市</Option>
@@ -275,12 +294,12 @@ class OpenCityForm extends PureComponent { // 不要通过export default 去导�
             // 框架的value 值是必须要加上的。{...formItemLayout}如果不加，label 和表单就会都占24列，因为我们指定了layout="horizontal"
           }
         </FormItem>
-        <FormItem label="营运模式" {...formItemLayout}>
+        <FormItem label="营运模式">
           {
             getFieldDecorator('op_mode', {
               initialValue: '全部'
             })(
-              <Select style={{ width: 200 }}>
+              <Select style={{ width: 200 }} allowClear>
                 <Option value="">全部</Option>
                 <Option value="自营">自营</Option>
                 <Option value="加盟">加盟</Option>
@@ -288,12 +307,12 @@ class OpenCityForm extends PureComponent { // 不要通过export default 去导�
             )
           }
         </FormItem>
-        <FormItem label="用车模式" {...formItemLayout}>
+        <FormItem label="用车模式">
           {
             getFieldDecorator('use_mode', {
               initialValue: '全部'
             })(
-              <Select style={{ width: 200 }}>
+              <Select style={{ width: 200 }} allowClear>
                 <Option value="">全部</Option>
                 <Option value="指定停车点">指定停车点</Option>
                 <Option value="禁停区">禁停区</Option>

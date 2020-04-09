@@ -49,10 +49,10 @@ const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
-// const lessModuleRegex = /\.less$/;
-// const lessRegex = /\.less$/;
-// let lessModulePaths = require('globby').sync(`${paths.appSrc}/*`, { ignore: [path.resolve(paths.appSrc, 'library'), '**/**.*'], absolute: true });
-// lessModulePaths = lessModulePaths.map(path.normalize);
+const lessModuleRegex = /\.less$/;
+const lessRegex = /\.less$/;
+let lessModulePaths = require('globby').sync(`${paths.appSrc}/*`, { ignore: [path.resolve(paths.appSrc, 'library'), '**/**.*'], absolute: true });
+lessModulePaths = lessModulePaths.map(path.normalize);
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -493,32 +493,32 @@ module.exports = function (webpackEnv) {
             },
             // Adds support for CSS Modules, but using LESS
             // using the extension .less
-            // {
-            //   test: lessModuleRegex,
-            //   include: lessModulePaths,
-            //   use: getStyleLoaders(
-            //     {
-            //       importLoaders: 2,
-            //       sourceMap: isEnvProduction && shouldUseSourceMap,
-            //       modules: true,
-            //       localIdentName: '[local]-[hash:base64:5]',
-            //     },
-            //     'less-loader'
-            //   ),
-            // },
+            {
+              test: lessModuleRegex,
+              include: lessModulePaths,
+              use: getStyleLoaders(
+                {
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
+                  modules: true,
+                  localIdentName: '[local]-[hash:base64:5]',
+                },
+                'less-loader'
+              ),
+            },
             // using LESS
             // using the extension .less
-            // {
-            //   test: lessRegex,
-            //   exclude: lessModulePaths,
-            //   use: getStyleLoaders(
-            //     {
-            //       importLoaders: 2,
-            //       sourceMap: isEnvProduction && shouldUseSourceMap,
-            //     },
-            //     'less-loader'
-            //   ),
-            // },
+            {
+              test: lessRegex,
+              exclude: lessModulePaths,
+              use: getStyleLoaders(
+                {
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
+                },
+                'less-loader'
+              ),
+            },
             // Opt-in support for SASS (using .scss or .sass extensions).
             // By default we support SASS Modules with the
             // extensions .module.scss or .module.sass

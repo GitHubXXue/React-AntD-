@@ -1,12 +1,6 @@
 import styled from 'styled-components';
 
 export const Div = styled.div`
-.card-wrap{
-    margin-bottom: 10px;
-    button{ 
-        margin-right: 10px;
-    }
-}
 /* modals */
 /* use css to set position of modal */
 .vertical-center-modal {
@@ -29,7 +23,7 @@ export const Div = styled.div`
     text-align: left;
   }
 
-  /* For demo */
+/* For demo 轮播*/
 .ant-carousel .slick-slide {
     text-align: center;
     height: 160px;

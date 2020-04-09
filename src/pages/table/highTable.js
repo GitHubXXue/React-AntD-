@@ -4,14 +4,17 @@ import request from '../../utils/request';
 import { apis } from '../../utils/apis';
 
 class BasicTable extends PureComponent {
-  state = {}
+  constructor(props) {
+    super(props);
+    this.state = {}
+  };
   params = {
     page: 1,
-    pageSize:10
+    pageSize: 10
   }
   componentDidMount() {
     this.getData();
-  } 
+  }
 
   // 动态获取mock数据
   getData = () => {
@@ -33,6 +36,8 @@ class BasicTable extends PureComponent {
     })
   }
 
+  // 表格里面 无论是分页变化 还是排序变化 都是需要给他加一个onChange事件的（分页 排序 筛选 变化时触发）
+  // 接收三个参数  分别是分页 过滤 排序
   handleChange = (pagination, filters, sorter) => {
     console.log("::" + sorter)
     this.setState({

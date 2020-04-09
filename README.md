@@ -1,68 +1,80 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 项目说明
 
-## Available Scripts
+1. React全家桶+AntD共享单车后台管理系统开发`react-manag-system`是基于React^16.12.0、Ant Design^3.25.2的管理系统架构。
 
-In the project directory, you can run:
+2. 采用前后端分离`所有请求数据均使用RAP2进行模拟`，内置了许多管理系统常用功能。
 
-### `yarn start`
+## 项目环境
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. 项目基于的nodejs版本为v12.13.1
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+2. 编辑器推荐vscode
 
-### `yarn test`
+## 项目安装
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+# 将项目从GitHub clone下来
+git clone https://github.com/GitHubXXue/React-AntD-.git
 
-### `yarn build`
+# 安装依赖
+npm install
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# 启动
+npm start
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## 项目打包
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+# 项目开发完成以后 进行项目打包
+npm run build
 
-### `yarn eject`
+# 安装依赖
+npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# 启动
+npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 项目结构
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+├── build               // 编译目录
+├── config              // 构建配置
+├── docs                // 项目预览图片
+├── public              // 不参与构建的静态文件
+├── scripts             // 构建脚本
+├── src         
+│   ├── axios           // 封装了axios、jsonp等公共机制
+│   ├── components      // 页面框架布局组件、通用组件
+│   ├── config          // 菜单配置
+│   ├── pages           // 页面组件
+│   ├── store           // 模块封装，基于redux，提供各组件共享数据、共享逻辑
+│   ├── style           // 全局样式 慎用
+│   ├── utils           // 基础组件、工具
+│   │   ├── apis.js          // 本文件用于定义接口地址
+│   │   ├── index.js         // 通用工具函数
+│   │   ├── loadable.js      // 定义异步加载组件
+│   │   ├── privateRoute.js  // 封装私用路由组件——仅登录用户可查看
+│   │   ├── request.js       // 初始化网络请求
+│   │   └── storageUtils.js  // 数据存储管理的工具模块
+│   ├── admin.js        // 一级页面根组件
+│   ├── App.js          // 根组件common
+│   ├── common.js       // 二级页面根组件
+│   ├── index.js        // 项目入口文件
+│   ├── router.js       // 路由入口
+├── .gitignore          
+├── package.json
+├── README.md           // 项目说明文件
+└── yarn.lock           // 项目依赖的安装包版本号的一些说明
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 技术说明
 
-## Learn More
+该项目使用 `react` 进行单页的开发，
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+使用 `redux` 进行数据管理，
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+使用 `react-router` 进行路由管理
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+使用 `ant-design` 做为 `ui` 库

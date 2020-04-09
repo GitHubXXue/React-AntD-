@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { PureComponent } from 'react';
 import { Button, Card, Modal } from 'antd'
 import { Editor } from 'react-draft-wysiwyg' // 导入我们的组件
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css' // 导入我们的样式
 // import { convertToRaw } from 'draft-js' //  编辑器中的内容  转换成 流的形式
 import draftjs from 'draftjs-to-html' // 这里使用这种方式 编辑器中的内容转换成我们想要的html 方式
-export default class RichText extends React.Component {
 
-  state = {
-    showRichText: false, // 控制弹框的显示隐藏
-    editorContent: '',
-    editorState: '', // 在state 中进行定义
+export default class RichText extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showRichText: false, // 控制弹框的显示隐藏
+      editorContent: '',
+      editorState: '', // 在state 中进行定义
+    }
   };
 
   handleClearContent = () => { // 清空文本的内容  清空的时候 ，实际上只要把这个状态清空就可以了，状态是变化了以后  才会把值保存进来的
@@ -46,21 +49,21 @@ export default class RichText extends React.Component {
   };
 
   render() {
-    const { editorContent, editorState } = this.state;
+    const { editorState } = this.state;
     return (
       <div>
         <Card style={{ marginTop: 10 }}>
-          <Button type="primary" onClick={this.handleClearContent}>清空内容</Button>
+          <Button type="primary" onClick={this.handleClearContent} style={{ marginRight: 10 }}>清空内容</Button>
           <Button type="primary" onClick={this.handleGetText}>获取HTML文本</Button>
         </Card>
         <Card title="富文本编辑器">
           {
-            // 基本用发 可以去 npm 搜索插件 可以找到对应的代码 进行粘贴就可以了
+            // 基本用法 可以去 npm 搜索插件 可以找到对应的代码 进行粘贴就可以了
             // 编辑器他的一些字体的颜色会根据系统的主题进行定义
           }
           <Editor
             editorState={editorState} // editorState 编辑的状态 我们需要把状态值保存下来。他也提供方式供我们去修改他的样式 
-            onContentStateChange={this.onEditorChange} // 获取内容变化的时候 取这个内容的 当我们输入内容发生变化的时候 我们需要取处理一下
+            onContentStateChange={this.onEditorChange} // 获取内容变化的时候 取这个内容的 当我们输入内容发生变化的时候 我们需要去处理一下
             onEditorStateChange={this.onEditorStateChange} // 编辑器状态发生变化的时候，他会接收这么一个方法 ，这个方法里面也会有很多的值 ，可以去看文档 这些值都是怎么去使用的
           />
         </Card>

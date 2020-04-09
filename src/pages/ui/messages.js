@@ -5,10 +5,6 @@ import {
 } from './ui';
 
 class Buttons extends PureComponent {
-  showMessage = (type) => {
-    message[type]("恭喜你，React课程晋级成功");
-  }
- 
   render() {
     return (
       <Div>
@@ -21,6 +17,9 @@ class Buttons extends PureComponent {
         </Card>
       </Div>
     );
+  }
+  showMessage = (type) => {
+    message[type]("恭喜你，React课程晋级成功");
   }
 }
 

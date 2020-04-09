@@ -31,7 +31,7 @@ class Loadings extends PureComponent {
               style={{ marginBottom: 10 }}
             />
           </Spin>
-          <Spin tip="加载中..." spinning={false}>
+          <Spin tip="加载中..." spinning={true}>
             <Alert
               message="React"
               description="欢迎来到React高级实战课程"
